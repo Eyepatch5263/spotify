@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-    baseURL: "https://spotify-backend-eye-970634887ce3.herokuapp.com/api"
+	baseURL: import.meta.env.MODE === "development" ? "http://localhost:5000/api" : "/api",
 })
