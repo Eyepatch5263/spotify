@@ -6,7 +6,7 @@ config();
 
 const seedDatabase = async () => {
 	try {
-		await mongoose.connect(process.env.MONGO_DB_URI);
+		await mongoose.connect(process.env.MONGO_DB_URI,{authSource: "admin"});
 
 		// Clear existing data
 		await Album.deleteMany({});

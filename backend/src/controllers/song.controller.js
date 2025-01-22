@@ -5,6 +5,7 @@ const errorHandler=require('../utils/error.js')
 const getAllSongs=async(req,res)=>{
     try {
         const allSongs = await Song.find().sort({createdAt:-1})
+        console.log("all songs are getting fetched")
         return res.status(200).json(allSongs);
     } catch (error) {
         console.log("Error in getting all songs", error);

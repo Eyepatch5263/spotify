@@ -5,6 +5,7 @@ const errorHandler=require('../utils/error.js')
 const getAllAlbums=async(req,res)=>{
     try {
         const allAlbums = await Album.find()
+        console.log("all albums are getting fetched")
         return res.status(200).json(allAlbums)
     } catch (error) {
         console.log("Error getting all albums", error)

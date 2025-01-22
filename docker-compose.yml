@@ -1,0 +1,44 @@
+services:
+  spotify-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports: 
+      - "5000:5000"
+    environment:
+      - MONGO_DB_URI=mongodb://root:example@spotify-mongo-1:27017/Spotify?authSource=admin
+    env_file:
+      - ./backend/.env
+    networks:
+      - custom-network
+
+  spotify-frontend:
+    image: eyepatch5263/spotify-frontend
+    env_file:
+      - ./frontend/.env.local
+    networks:
+      - custom-network
+    depends_on:
+      - spotify-backend
+    ports:
+      - "3000:3000"
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - custom-network
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGODB_INITDB_DATABASE: Spotify
+
+volumes:
+  mongo-data:
+
+networks:
+  custom-network:
